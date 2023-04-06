@@ -47,18 +47,18 @@ resource "aws_s3_bucket_website_configuration" "static_hosting_bucket" {
 
 resource "aws_s3_object" "static_hosting_html_documents" {
   for_each = fileset(local.html_documentss_base_path, "*.html")
-  bucket = aws_s3_bucket.static_hosting_bucket.id
-  key    = each.value
-  source = "${local.html_documentss_base_path}${each.value}"
-  etag = filemd5("${local.html_documentss_base_path}${each.value}")
+  bucket   = aws_s3_bucket.static_hosting_bucket.id
+  key      = each.value
+  source   = "${local.html_documentss_base_path}${each.value}"
+  etag     = filemd5("${local.html_documentss_base_path}${each.value}")
 }
 
 resource "aws_s3_object" "static_hosting_img_resources" {
   for_each = fileset(local.img_resources_base_path, "*.jpg")
-  bucket = aws_s3_bucket.static_hosting_bucket.id
-  key    = "img/${each.value}"
-  source = "${local.img_resources_base_path}${each.value}"
-  etag = filemd5("${local.img_resources_base_path}${each.value}")
+  bucket   = aws_s3_bucket.static_hosting_bucket.id
+  key      = "img/${each.value}"
+  source   = "${local.img_resources_base_path}${each.value}"
+  etag     = filemd5("${local.img_resources_base_path}${each.value}")
 }
 
 
