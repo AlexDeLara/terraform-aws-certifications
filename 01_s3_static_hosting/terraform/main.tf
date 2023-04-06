@@ -10,7 +10,7 @@ terraform {
     organization = "alex-de-lara"
 
     workspaces {
-      prefix = "terraform-aws-certifications-"
+      name = "01_s3_static_hosting"
     }
   }
 }
