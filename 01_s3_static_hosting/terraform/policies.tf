@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "static_hosting_bucket_policy" {
     actions = ["s3:GetObject"]
 
     resources = [
-      aws_s3_bucket.static_hosting_bucket.arn
+      "${aws_s3_bucket.static_hosting_bucket.arn}/*"
     ]
   }
 }
