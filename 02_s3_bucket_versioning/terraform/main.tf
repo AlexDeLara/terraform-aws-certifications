@@ -70,7 +70,7 @@ resource "aws_s3_object" "img_version_2" {
   bucket       = aws_s3_bucket.static_hosting_bucket.id
   key          = "/img.winkie.jpg"
   source       = "${local.img_resources_base_path}/winkie_v2.jpg"
-  etag         = filemd5("${local.img_resources_base_path}/winkie.jpg")
+  etag         = filemd5("${local.img_resources_base_path}/winkie_v2.jpg")
   content_type = "image/jpeg"
   depends_on   = [aws_s3_object.img_version_1]
 }
