@@ -72,5 +72,5 @@ resource "aws_s3_object" "img_version_2" {
   source       = "${local.img_resources_base_path}/winkie_v2.jpg"
   etag         = filemd5("${local.img_resources_base_path}/winkie.jpg")
   content_type = "image/jpeg"
-  depends_on   = [aws_s3_buckaws_s3_objectet_versioning.img_version_1]
+  depends_on   = [aws_s3_object.img_version_1]
 }
