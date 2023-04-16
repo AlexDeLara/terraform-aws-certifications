@@ -80,8 +80,8 @@ resource "aws_route_table" "a4l_vpc1_rt" {
   depends_on = [aws_vpc.a4l_vpc1, aws_internet_gateway.a4l_vpc1_igw]
 }
 
-# resource "aws_route_table_association" "a4l_vpc1_rt_association" {
-#     for_each = toset([for sn in local.vpc_sn : sn.public ? sn.])
-#   subnet_id      = aws_subnet.foo.id
-#   route_table_id = aws_route_table.bar.id
-# }
+resource "aws_route_table_association" "a4l_vpc1_rt_association" {
+  for_each       = toset([for isn in aws_subnet.a4l_vpc1_sn[*] : isn.id if isn.map_public_ip_on_launch])
+  subnet_id      = each.value
+  route_table_id = aws_route_table.a4l_vpc1_rt.id
+}
