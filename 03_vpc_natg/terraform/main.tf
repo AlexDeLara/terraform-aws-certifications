@@ -25,6 +25,11 @@ resource "aws_vpc" "a4l_vpc1" {
   enable_dns_support               = true
   enable_dns_hostnames             = true
   assign_generated_ipv6_cidr_block = true
+
+  tags = {
+    Name = "a4l-vpc1"
+  }
+
 }
 
 resource "aws_subnet" "a4l_vpc1_sn" {
@@ -37,7 +42,7 @@ resource "aws_subnet" "a4l_vpc1_sn" {
   ipv6_cidr_block = cidrsubnet(aws_vpc.a4l_vpc1.ipv6_cidr_block, 8, count.index)
 
   tags = {
-    name = local.vpc_sn[count.index].name
+    Name = local.vpc_sn[count.index].name
   }
 
 }
