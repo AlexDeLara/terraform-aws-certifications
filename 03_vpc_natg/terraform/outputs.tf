@@ -1,7 +1,4 @@
-output "vpc1-ipv6-cidr" {
-  value = aws_vpc.a4l-vpc1.ipv6_association_id
-}
+# output "vpc1-sn-list" {
+#   value = aws_subnet.a4l_vpc1_sn //"vpc-cidr-assoc-060fd3393c62ef62f"
+# }
 
-output "vpc1-ipv6-cidr2" {
-  value = aws_vpc.a4l-vpc1.ipv6_cidr_block_network_border_group
-}
