@@ -5,6 +5,6 @@ locals {
   azs   = ["a", "b", "c"]
   tiers = ["reserved", "web", "db", "app"]
 
-  vpc_sn = flatten([for iaz in local.azs : [for itier in local.tiers : { az = "${local.region}${iaz}", name = "sn-${itier}-${upper(iaz)}" }]])
+  vpc_sn = flatten([for iaz in local.azs : [for itier in local.tiers : { az = "${local.region}${iaz}", name = "sn-${itier}-${upper(iaz)}", public = itier == "web" ? true : false }]])
 
 }
