@@ -84,4 +84,14 @@ resource "aws_route_table_association" "a4l_vpc1_rt_association" {
   for_each       = toset([for isn in aws_subnet.a4l_vpc1_sn[*] : isn.id if isn.map_public_ip_on_launch])
   subnet_id      = each.value
   route_table_id = aws_route_table.a4l_vpc1_rt.id
+
+  depends_on = [aws_route_table.a4l_vpc1_rt]
 }
+
+
+
+# resource "aws_instance" "a4l_internal_test" {
+#     instance_type = "t2.micro"
+#     availability_zone = "${local.region}${local.azs[0]}"
+#     subnet_id = [for isn in aws_subnet.a4l_vpc1_sn[*] : isn.id if isn.availability_zone == "${local.region}${local.azs[0]}"][0]
+# }
