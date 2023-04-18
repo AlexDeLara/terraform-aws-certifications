@@ -81,11 +81,11 @@ resource "aws_route_table" "a4l_vpc1_rt" {
 }
 
 resource "aws_route_table_association" "a4l_vpc1_rt_association" {
-  for_each       = toset([for isn in aws_subnet.a4l_vpc1_sn[*] : isn.id if isn.map_public_ip_on_launch])
-  subnet_id      = each.value
+  count          = length([for isn in aws_subnet.a4l_vpc1_sn[*] : isn.id if isn.map_public_ip_on_launch])
+  subnet_id      = [for isn in aws_subnet.a4l_vpc1_sn[*] : isn.id if isn.map_public_ip_on_launch][count.index]
   route_table_id = aws_route_table.a4l_vpc1_rt.id
 
-  depends_on = [aws_route_table.a4l_vpc1_rt]
+  depends_on = [aws_route_table.a4l_vpc1_rt, aws_subnet.a4l_vpc1_sn]
 }
 
 # resource "aws_security_group" "a4l_sg_ec2_ssh" {
