@@ -88,31 +88,31 @@ resource "aws_route_table_association" "a4l_vpc1_rt_association" {
   depends_on = [aws_route_table.a4l_vpc1_rt]
 }
 
-resource "aws_security_group" "a4l_sg_ec2_ssh" {
-  name        = "a4l_sg_ec2_ssh"
-  description = "Allow inbound SSH"
-  vpc_id      = aws_vpc.a4l_vpc1.id
+# resource "aws_security_group" "a4l_sg_ec2_ssh" {
+#   name        = "a4l_sg_ec2_ssh"
+#   description = "Allow inbound SSH"
+#   vpc_id      = aws_vpc.a4l_vpc1.id
 
-  ingress {
-    description      = "TLS from VPC"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
+#   ingress {
+#     description      = "TLS from VPC"
+#     from_port        = 22
+#     to_port          = 22
+#     protocol         = "tcp"
+#     cidr_blocks      = ["0.0.0.0/0"]
+#     ipv6_cidr_blocks = ["::/0"]
+#   }
 
-  tags = {
-    Name = "a4l-sg-ec2-ssh"
-  }
-}
+#   tags = {
+#     Name = "a4l-sg-ec2-ssh"
+#   }
+# }
 
 resource "aws_instance" "a4l_internal_test" {
   instance_type          = "t2.micro"
   ami                    = data.aws_ami.ami_aws_linux_latest.id
   key_name               = local.ec2_key_name
-  availability_zone      = "${local.region}${local.azs[0]}"
+  availability_zone      = "${local.region}${local.azs[3]}"
   subnet_id              = [for isn in aws_subnet.a4l_vpc1_sn[*] : isn.id if isn.availability_zone == "${local.region}${local.azs[0]}"][0]
-  vpc_security_group_ids = [aws_security_group.a4l_sg_ec2_ssh.id]
+  //vpc_security_group_ids = [aws_security_group.a4l_sg_ec2_ssh.id]
 }
 
