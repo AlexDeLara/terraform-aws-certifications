@@ -111,7 +111,7 @@ resource "aws_instance" "a4l_internal_test" {
   instance_type          = "t2.micro"
   ami                    = data.aws_ami.ami_aws_linux_latest.id
   key_name               = local.ec2_key_name
-  availability_zone      = "${local.region}${local.azs[3]}"
+  availability_zone      = "${local.region}${local.azs[2]}"
   subnet_id              = [for isn in aws_subnet.a4l_vpc1_sn[*] : isn.id if isn.availability_zone == "${local.region}${local.azs[0]}"][0]
   //vpc_security_group_ids = [aws_security_group.a4l_sg_ec2_ssh.id]
 }
